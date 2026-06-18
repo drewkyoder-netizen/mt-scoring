@@ -5,120 +5,149 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MT Interview Scorecard</title>
 <style>
+/* GSW palette: Royal Blue #1D428A, Gold #FFC72C, White #FFFFFF */
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#0f0f0f;color:#e8e8e8;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;}
+body{background:#f0f2f5;color:#1a1a2e;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;}
 .app{max-width:900px;margin:0 auto;padding:1.5rem 1rem;}
-.header{margin-bottom:1.5rem;}
-.header h1{font-size:20px;font-weight:500;color:#f0f0f0;}
-.header p{font-size:13px;color:#666;margin-top:4px;}
+
+/* Header — gold bar with blue title */
+.header{margin-bottom:1.5rem;background:linear-gradient(135deg,#1D428A 0%,#1a3a7a 100%);border-radius:14px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
+.header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,199,44,0.12);}
+.header h1{font-size:20px;font-weight:600;color:#FFC72C;letter-spacing:0.01em;}
+.header p{font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;}
+
+/* Nav tabs */
 .nav-main{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap;}
-.tab{background:#1a1a1a;border:0.5px solid #2e2e2e;border-radius:8px;color:#888;cursor:pointer;font-size:13px;padding:7px 16px;transition:all 0.15s;}
-.tab.active{background:#1d3a5f;border-color:#2a5a9f;color:#9fc8f0;}
-.tab:hover:not(.active){border-color:#444;color:#ccc;}
+.tab{background:#fff;border:1px solid #dde2ec;border-radius:8px;color:#666;cursor:pointer;font-size:13px;font-weight:500;padding:7px 16px;transition:all 0.15s;}
+.tab.active{background:#1D428A;border-color:#1D428A;color:#FFC72C;}
+.tab:hover:not(.active){border-color:#1D428A;color:#1D428A;}
+
 .view{display:none;}
 .view.active{display:block;}
-.section-label{font-size:11px;font-weight:500;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
-.card{background:#1a1a1a;border:0.5px solid #2e2e2e;border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+
+/* Section labels */
+.section-label{font-size:11px;font-weight:600;color:#1D428A;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+
+/* Cards */
+.card{background:#fff;border:1px solid #dde2ec;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+
+/* Rater selector */
 .rater-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.rater-btn{background:#1e1e1e;border:0.5px solid #2e2e2e;border-radius:10px;color:#888;cursor:pointer;padding:14px 8px;text-align:center;transition:all 0.15s;}
-.rater-btn:hover{border-color:#444;color:#ccc;}
-.rater-btn.selected{background:#1d3a5f;border-color:#4a90d9;color:#9fc8f0;}
-.rater-btn .initials{font-size:22px;font-weight:500;display:block;margin-bottom:4px;}
+.rater-btn{background:#f6f8fb;border:1.5px solid #dde2ec;border-radius:10px;color:#888;cursor:pointer;padding:14px 8px;text-align:center;transition:all 0.15s;}
+.rater-btn:hover{border-color:#1D428A;color:#1D428A;}
+.rater-btn.selected{background:#1D428A;border-color:#1D428A;color:#FFC72C;}
+.rater-btn .initials{font-size:22px;font-weight:600;display:block;margin-bottom:4px;}
 .rater-btn .rname{font-size:12px;}
+
+/* Weight sliders */
 .weights-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.wlabel{font-size:13px;color:#ccc;flex:1;}
-.wval{font-size:13px;font-weight:500;width:38px;text-align:right;}
-input[type=range]{flex:0 0 150px;accent-color:#4a90d9;}
-.btn{background:#252525;border:0.5px solid #333;border-radius:8px;color:#e8e8e8;cursor:pointer;font-size:13px;padding:8px 16px;transition:background 0.15s;}
-.btn:hover{background:#303030;}
-.btn-primary{background:#1d3a5f;border-color:#2a5a9f;color:#9fc8f0;}
-.btn-primary:hover{background:#244a78;}
+.wlabel{font-size:13px;color:#333;flex:1;}
+.wval{font-size:13px;font-weight:600;width:38px;text-align:right;}
+input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
+
+/* Buttons */
+.btn{background:#f6f8fb;border:1px solid #dde2ec;border-radius:8px;color:#333;cursor:pointer;font-size:13px;padding:8px 16px;transition:all 0.15s;}
+.btn:hover{background:#eef1f7;border-color:#1D428A;}
+.btn-primary{background:#1D428A;border-color:#1D428A;color:#FFC72C;font-weight:500;}
+.btn-primary:hover{background:#163570;}
 .btn-success{background:#1a3a1f;border-color:#2a6a30;color:#7fd090;}
 .btn-success:hover{background:#224528;}
-.btn-danger{background:#3a1515;border-color:#6b2020;color:#e06060;}
-.candidate-section{background:#1a1a1a;border:0.5px solid #2e2e2e;border-radius:12px;margin-bottom:1rem;overflow:hidden;}
+.btn-danger{background:#fdf0f0;border-color:#e0a0a0;color:#c03030;}
+
+/* Candidate sections */
+.candidate-section{background:#fff;border:1px solid #dde2ec;border-radius:12px;margin-bottom:1rem;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .cand-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;cursor:pointer;user-select:none;}
-.cand-header:hover{background:#1e1e1e;}
-.cand-name{font-size:15px;font-weight:500;color:#e0e0e0;}
-.cand-body{border-top:0.5px solid #2e2e2e;padding:1.25rem;display:none;}
+.cand-header:hover{background:#f6f8fb;}
+.cand-name{font-size:15px;font-weight:600;color:#1D428A;}
+.cand-body{border-top:1px solid #eef1f7;padding:1.25rem;display:none;background:#fafbfd;}
 .cand-body.open{display:block;}
-.pillar-block{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:0.5px solid #252525;}
+
+/* Pillar blocks */
+.pillar-block{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid #eef1f7;}
 .pillar-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .pillar-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.pillar-name{font-size:14px;font-weight:500;color:#e0e0e0;}
-.pillar-sub{font-size:12px;color:#555;margin-top:2px;}
-.score-disp{font-size:22px;font-weight:500;color:#4a90d9;min-width:24px;text-align:right;}
+.pillar-name{font-size:14px;font-weight:600;color:#1D428A;}
+.pillar-sub{font-size:12px;color:#888;margin-top:2px;}
+.score-disp{font-size:22px;font-weight:700;color:#bbb;min-width:24px;text-align:right;transition:color 0.15s;}
+
+/* Score buttons — keep number colors, light backgrounds */
 .score-btn-wrap{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
 .score-btn-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.sbtn{border-radius:8px;cursor:pointer;font-size:15px;font-weight:500;padding:12px 0;width:100%;text-align:center;transition:all 0.12s;border:0.5px solid transparent;}
-.sbtn:hover{filter:brightness(1.2);}
-.sbtn-label{font-size:10px;color:#555;text-align:center;line-height:1.2;min-height:14px;}
-.s1-base{background:#2a1010;border-color:#6b2020;color:#e06060;}
-.s2-base{background:#281808;border-color:#6a3510;color:#d07040;}
-.s3-base{background:#221e08;border-color:#5a5010;color:#b8a840;}
-.s4-base{background:#1a1a1a;border-color:#404040;color:#888;}
-.s5-base{background:#1a1a1a;border-color:#404040;color:#888;}
-.s6-base{background:#0e2010;border-color:#1e5020;color:#60b870;}
-.s7-base{background:#0a2008;border-color:#1a6015;color:#50d060;}
-.s1-sel{background:#3a1515;border-color:#c03030;color:#ff8080;box-shadow:0 0 0 2px #c0303044;}
-.s2-sel{background:#3a2008;border-color:#c06020;color:#ff9050;box-shadow:0 0 0 2px #c0602044;}
-.s3-sel{background:#302808;border-color:#a09020;color:#e8d060;box-shadow:0 0 0 2px #a0902044;}
-.s4-sel{background:#282828;border-color:#707070;color:#c0c0c0;box-shadow:0 0 0 2px #70707044;}
-.s5-sel{background:#282828;border-color:#707070;color:#c0c0c0;box-shadow:0 0 0 2px #70707044;}
-.s6-sel{background:#103018;border-color:#30a040;color:#80e898;box-shadow:0 0 0 2px #30a04044;}
-.s7-sel{background:#0c3010;border-color:#28c030;color:#60ff70;box-shadow:0 0 0 2px #28c03044;}
-.notes-field{background:#111;border:0.5px solid #2e2e2e;border-radius:8px;color:#ccc;font-size:13px;margin-top:10px;outline:none;padding:8px 10px;resize:none;width:100%;}
-.notes-field:focus{border-color:#444;}
-.submit-bar{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:0.5px solid #252525;}
-.prog-text{font-size:13px;color:#666;}
-.locked-badge{background:#1a3020;border:0.5px solid #2a5030;border-radius:6px;color:#60c080;font-size:12px;padding:4px 10px;}
-.warn-box{background:#2a1a0a;border:0.5px solid #5a3a10;border-radius:8px;color:#c89040;font-size:13px;padding:10px 14px;margin-bottom:1rem;}
-.info-box{background:#0f1e30;border:0.5px solid #1e4060;border-radius:8px;color:#70a8d0;font-size:13px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
-.results-card{background:#1a1a1a;border:0.5px solid #2e2e2e;border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+.sbtn{border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;padding:12px 0;width:100%;text-align:center;transition:all 0.12s;border:1px solid transparent;}
+.sbtn:hover{filter:brightness(0.92);}
+.sbtn-label{font-size:10px;color:#aaa;text-align:center;line-height:1.2;min-height:14px;}
+.s1-base{background:#fdf0f0;border-color:#f0b0b0;color:#c83030;}
+.s2-base{background:#fdf4ee;border-color:#f0c090;color:#c06020;}
+.s3-base{background:#fdfaee;border-color:#e8d870;color:#907010;}
+.s4-base{background:#f6f6f6;border-color:#d0d0d0;color:#888;}
+.s5-base{background:#eef8f2;border-color:#90d8b0;color:#208050;}
+.s6-base{background:#eaf7ee;border-color:#60c878;color:#186828;}
+.s7-base{background:#eef2fc;border-color:#90b0e8;color:#1a3a88;}
+.s1-sel{background:#fde0e0;border-color:#c03030;color:#c03030;box-shadow:0 0 0 2px #c0303030;}
+.s2-sel{background:#fde8d8;border-color:#c06020;color:#c06020;box-shadow:0 0 0 2px #c0602030;}
+.s3-sel{background:#fdf4c0;border-color:#a09020;color:#807010;box-shadow:0 0 0 2px #a0902030;}
+.s4-sel{background:#ebebeb;border-color:#909090;color:#505050;box-shadow:0 0 0 2px #90909030;}
+.s5-sel{background:#d8f4e8;border-color:#28a060;color:#186840;box-shadow:0 0 0 2px #28a06030;}
+.s6-sel{background:#c8f0d8;border-color:#20c040;color:#106820;box-shadow:0 0 0 2px #20c04030;}
+.s7-sel{background:#d8e8fc;border-color:#2858d0;color:#1a3888;box-shadow:0 0 0 2px #2858d030;}
+
+/* Notes */
+.notes-field{background:#fff;border:1px solid #dde2ec;border-radius:8px;color:#333;font-size:13px;margin-top:10px;outline:none;padding:8px 10px;resize:none;width:100%;}
+.notes-field:focus{border-color:#1D428A;box-shadow:0 0 0 2px rgba(29,66,138,0.1);}
+
+/* Submit bar */
+.submit-bar{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid #eef1f7;}
+.prog-text{font-size:13px;color:#888;}
+.locked-badge{background:#eef6f1;border:1px solid #90d0a8;border-radius:6px;color:#207040;font-size:12px;padding:4px 10px;}
+.warn-box{background:#fffbee;border:1px solid #f0d880;border-radius:8px;color:#806010;font-size:13px;padding:10px 14px;margin-bottom:1rem;}
+.info-box{background:#eef2fc;border:1px solid #b0c4f0;border-radius:8px;color:#1D428A;font-size:13px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+
+/* Results */
+.results-card{background:#fff;border:1px solid #dde2ec;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .results-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
-.comp-score{font-size:28px;font-weight:500;color:#9090f0;}
+.comp-score{font-size:28px;font-weight:700;transition:color 0.2s;}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
-.bar-label{font-size:12px;color:#888;width:195px;flex-shrink:0;}
-.bar-track{flex:1;background:#252525;border-radius:4px;height:8px;overflow:hidden;}
+.bar-label{font-size:12px;color:#666;width:195px;flex-shrink:0;}
+.bar-track{flex:1;background:#eef1f7;border-radius:4px;height:8px;overflow:hidden;}
 .bar-fill{height:100%;border-radius:4px;}
 .bar-val{font-size:12px;width:28px;text-align:right;}
-.bar-row.sorted-pillar .bar-label{color:#9fc8f0;}
-.bar-row.sorted-pillar .bar-val{color:#9fc8f0;font-weight:500;}
-.rater-breakdown{margin-top:12px;border-top:0.5px solid #252525;padding-top:12px;}
+.bar-row.sorted-pillar .bar-label{color:#1D428A;font-weight:600;}
+.bar-row.sorted-pillar .bar-val{color:#1D428A;font-weight:600;}
+.rater-breakdown{margin-top:12px;border-top:1px solid #eef1f7;padding-top:12px;}
 .rater-grid-r{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.rater-cell{background:#1e1e1e;border:0.5px solid #2e2e2e;border-radius:8px;padding:8px 10px;}
-.rater-cell-name{font-size:11px;color:#666;margin-bottom:4px;}
-.rater-cell-score{font-size:16px;font-weight:500;}
-.pill-sm{font-size:10px;padding:2px 5px;border-radius:4px;color:#888;background:#252525;border:0.5px solid #333;display:inline-block;margin:2px 2px 0 0;}
-.expand-btn{background:#1e1e1e;border:0.5px solid #2e2e2e;border-radius:7px;color:#888;cursor:pointer;font-size:12px;padding:5px 10px;margin-top:10px;width:100%;text-align:center;}
-.expand-btn:hover{border-color:#444;color:#ccc;}
+.rater-cell{background:#f6f8fb;border:1px solid #dde2ec;border-radius:8px;padding:8px 10px;}
+.rater-cell-name{font-size:11px;color:#888;margin-bottom:4px;font-weight:500;}
+.rater-cell-score{font-size:16px;font-weight:700;}
+.pill-sm{font-size:10px;padding:2px 5px;border-radius:4px;color:#666;background:#eef1f7;border:1px solid #dde2ec;display:inline-block;margin:2px 2px 0 0;}
+.expand-btn{background:#f6f8fb;border:1px solid #dde2ec;border-radius:7px;color:#666;cursor:pointer;font-size:12px;padding:6px 10px;margin-top:10px;width:100%;text-align:center;transition:all 0.15s;}
+.expand-btn:hover{border-color:#1D428A;color:#1D428A;}
 .detail-body{margin-top:10px;display:none;}
 .detail-body.open{display:block;}
+
+/* Sort bar */
 .sort-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
-.sort-label{font-size:12px;color:#666;margin-right:2px;}
-.sort-btn{background:#1e1e1e;border:0.5px solid #2e2e2e;border-radius:7px;color:#888;cursor:pointer;font-size:12px;padding:6px 12px;transition:all 0.12s;white-space:nowrap;}
-.sort-btn:hover{border-color:#444;color:#ccc;}
-.sort-btn.active{background:#1d3a5f;border-color:#4a90d9;color:#9fc8f0;}
-.lb-row{display:flex;align-items:center;gap:12px;background:#1e1e1e;border:0.5px solid #2e2e2e;border-radius:10px;padding:12px 14px;margin-bottom:8px;}
-.lb-rank{font-size:20px;font-weight:500;color:#555;width:28px;flex-shrink:0;}
-.lb-rank.r1{color:#c8a830;}
-.lb-rank.r2{color:#909090;}
-.lb-rank.r3{color:#8a5a30;}
-.lb-name{font-size:15px;font-weight:500;color:#e0e0e0;flex:1;}
+.sort-label{font-size:12px;color:#888;margin-right:2px;}
+.sort-btn{background:#fff;border:1px solid #dde2ec;border-radius:7px;color:#666;cursor:pointer;font-size:12px;padding:6px 12px;transition:all 0.12s;white-space:nowrap;}
+.sort-btn:hover{border-color:#1D428A;color:#1D428A;}
+.sort-btn.active{background:#1D428A;border-color:#1D428A;color:#FFC72C;font-weight:500;}
+
+/* Leaderboard */
+.lb-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #dde2ec;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.lb-rank{font-size:20px;font-weight:700;color:#bbb;width:28px;flex-shrink:0;}
+.lb-rank.r1{color:#FFC72C;}
+.lb-rank.r2{color:#a0a8b8;}
+.lb-rank.r3{color:#c09060;}
+.lb-name{font-size:15px;font-weight:600;color:#1D428A;flex:1;}
 .lb-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
-.lb-pill{font-size:11px;padding:2px 7px;border-radius:4px;background:#252525;border:0.5px solid #333;color:#888;}
-.lb-pill.hl{border-color:#4a90d9;color:#9fc8f0;background:#1d3a5f;}
-.lb-score{font-size:20px;font-weight:500;color:#9090f0;}
+.lb-pill{font-size:11px;padding:2px 7px;border-radius:4px;background:#f0f2f8;border:1px solid #dde2ec;color:#666;}
+.lb-pill.hl{border-color:#1D428A;color:#1D428A;background:#e8edf8;font-weight:600;}
+.lb-score{font-size:20px;font-weight:700;}
 .chip{font-size:12px;padding:4px 10px;border-radius:6px;}
-.chip.done{background:#1a3020;border:0.5px solid #2a5030;color:#60c080;}
-.chip.pending{background:#252525;border:0.5px solid #333;color:#666;}
-.divider{height:0.5px;background:#252525;margin:1.5rem 0;}
-.spinner{display:inline-block;width:14px;height:14px;border:2px solid #333;border-top-color:#4a90d9;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
+.chip.done{background:#eef6f1;border:1px solid #90d0a8;color:#207040;}
+.chip.pending{background:#f6f6f6;border:1px solid #ddd;color:#999;}
+.divider{height:1px;background:#eef1f7;margin:1.5rem 0;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #dde2ec;border-top-color:#1D428A;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.sync-status{font-size:12px;color:#666;display:flex;align-items:center;gap:6px;margin-top:8px;}
-.sync-dot{width:7px;height:7px;border-radius:50%;background:#60c080;flex-shrink:0;}
-.sync-dot.syncing{background:#c8a830;animation:pulse 1s infinite;}
-.sync-dot.error{background:#c03030;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @media(max-width:560px){.rater-grid{grid-template-columns:repeat(2,1fr);}input[type=range]{flex:0 0 100px;}.rater-grid-r{grid-template-columns:repeat(2,1fr);}}
 </style>
@@ -254,8 +283,8 @@ function renderScorePage(){
     return;
   }
   banner.innerHTML=`<div style="display:flex;align-items:center;gap:10px;">
-    <div style="width:36px;height:36px;border-radius:50%;background:#1d3a5f;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#9fc8f0;">${rater.initials}</div>
-    <div><div style="font-size:15px;font-weight:500;color:#e0e0e0;">Scoring as ${rater.name}</div><div style="font-size:12px;color:#666;">Rate all 6 candidates, then submit each one</div></div>
+    <div style="width:36px;height:36px;border-radius:50%;background:#1D428A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#FFC72C;">${rater.initials}</div>
+    <div><div style="font-size:15px;font-weight:600;color:#1D428A;">Scoring as ${rater.name}</div><div style="font-size:12px;color:#888;">Rate all 6 candidates, then submit each one</div></div>
     <button class="btn" onclick="switchView('setup')" style="margin-left:auto;font-size:12px;padding:6px 12px;">Change</button>
   </div>`;
   document.getElementById('scoreSections').innerHTML = CANDIDATES.map(c=>buildCandSection(c,rater.id)).join('');
@@ -290,7 +319,7 @@ function buildCandSection(candidate, raterId){
       return `<div class="pillar-block">
         <div class="pillar-header">
           <div><div class="pillar-name">${p.name}</div><div class="pillar-sub">${p.sub}</div></div>
-          <div class="score-disp" id="sd-${cid}-${p.key}">${sc||'—'}</div>
+          <div class="score-disp" id="sd-${cid}-${p.key}" style="color:${sc?scoreColor(sc):'#555'};">${sc||'—'}</div>
         </div>
         <div class="score-btn-wrap">${btns}</div>
         <textarea class="notes-field" rows="2" placeholder="Notes..." id="nt-${cid}-${p.key}" onblur="saveNote('${candidate}','${raterId}','${p.key}',this.value)">${notes}</textarea>
@@ -330,7 +359,7 @@ function setScore(candidate,raterId,pillar,score){
   state.scores[key][pillar].score=score; save();
   const cid=candidate.replace(/ /g,'_');
   const sd=document.getElementById('sd-'+cid+'-'+pillar);
-  if(sd) sd.textContent=score;
+  if(sd){ sd.textContent=score; sd.style.color=scoreColor(score); }
   [1,2,3,4,5,6,7].forEach(n=>{
     const btn=document.getElementById('sb-'+cid+'-'+pillar+'-'+n);
     if(btn) btn.className='sbtn '+(n===score?BTN_SEL[n]:BTN_BASE[n]);
@@ -424,18 +453,39 @@ function computeRemoteComposite(candidate){
   return{pillarAvgs,composite,raterComposites};
 }
 
-function barColor(avg){
-  if(avg<3) return'#c03030';
-  if(avg<4.5) return'#a09020';
-  if(avg<6) return'#208040';
-  return'#28c030';
-}
 function scoreColor(s){
-  if(s<3) return'#e06060';
-  if(s<4.5) return'#c8b040';
-  if(s<6) return'#60b870';
-  return'#50d060';
+  // Continuous gradient: 1=red, 2=orange, 3=yellow, 4=grey, 5=light green, 6=green, 7=blue
+  if(s<=1)  return'#e06060';
+  if(s<=2)  return'#d07040';
+  if(s<=3)  return'#b8a840';
+  if(s<=4)  return'#888888';
+  if(s<=5)  return'#7dd4a0';
+  if(s<=6)  return'#4ec870';
+  return'#6098e8';
 }
+function scoreColorContinuous(val){
+  // Interpolated for composite decimals
+  const stops=[
+    {v:1, r:224,g:96, b:96 },
+    {v:2, r:208,g:112,b:64 },
+    {v:3, r:184,g:168,b:64 },
+    {v:4, r:136,g:136,b:136},
+    {v:5, r:125,g:212,b:160},
+    {v:6, r:78, g:200,b:112},
+    {v:7, r:96, g:152,b:232},
+  ];
+  const clamped=Math.max(1,Math.min(7,val));
+  let lo=stops[0],hi=stops[stops.length-1];
+  for(let i=0;i<stops.length-1;i++){
+    if(clamped>=stops[i].v && clamped<=stops[i+1].v){ lo=stops[i]; hi=stops[i+1]; break; }
+  }
+  const t=(clamped-lo.v)/(hi.v-lo.v);
+  const r=Math.round(lo.r+(hi.r-lo.r)*t);
+  const g=Math.round(lo.g+(hi.g-lo.g)*t);
+  const b=Math.round(lo.b+(hi.b-lo.b)*t);
+  return`rgb(${r},${g},${b})`;
+}
+function barColor(avg){ return scoreColorContinuous(avg); }
 
 function getSortVal(c){
   return sortKey==='composite'?c.composite:c.pillarAvgs[sortKey];
@@ -457,7 +507,7 @@ function renderResults(){
   const totalRatersSubmitted=RATERS.filter(r=>CANDIDATES.some(c=>raterSubmittedAll(c,r.id))).length;
 
   let html=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-    <div style="font-size:13px;color:#666;">${remoteScores.length} score entries loaded from Google Sheets</div>
+    <div style="font-size:13px;color:#999;">${remoteScores.length} score entries loaded from Google Sheets</div>
     <button class="btn" onclick="fetchAndRenderResults()" style="font-size:12px;padding:5px 12px;">↻ Refresh</button>
   </div>`;
 
@@ -476,7 +526,7 @@ function renderResults(){
       html+=`<div class="lb-row">
         <div class="lb-rank ${rc}">${i+1}</div>
         <div style="flex:1;"><div class="lb-name">${c.name}</div><div class="lb-pills">${pills}</div></div>
-        <div style="text-align:right;"><div class="lb-score">${val.toFixed(2)}</div><div style="font-size:11px;color:#666;">${sortKey==='composite'?'composite':PILLARS.find(p=>p.key===sortKey)?.name.split(' ')[0]}</div></div>
+        <div style="text-align:right;"><div class="lb-score" style="color:${scoreColorContinuous(val)};">${val.toFixed(2)}</div><div style="font-size:11px;color:#999;">${sortKey==='composite'?'composite':PILLARS.find(p=>p.key===sortKey)?.name.split(' ')[0]}</div></div>
       </div>`;
     });
     html+=`<div class="divider"></div>`;
@@ -494,12 +544,12 @@ function renderResults(){
     html+=`<div class="results-card">
       <div class="results-top">
         <div>
-          <div style="font-size:17px;font-weight:500;color:#f0f0f0;">${cname}</div>
-          <div style="font-size:12px;color:#666;margin-top:4px;">${doneRaters.length} / 4 raters submitted</div>
+          <div style="font-size:17px;font-weight:600;color:#1D428A;">${cname}</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">${doneRaters.length} / 4 raters submitted</div>
         </div>
         ${c.composite!==null
-          ?`<div><div class="comp-score">${c.composite.toFixed(2)}</div><div style="font-size:11px;color:#666;text-align:right;">weighted composite</div></div>`
-          :`<div style="font-size:13px;color:#666;">Awaiting submissions</div>`}
+          ?`<div><div class="comp-score" style="color:${scoreColorContinuous(c.composite)};">${c.composite.toFixed(2)}</div><div style="font-size:11px;color:#999;text-align:right;">weighted composite</div></div>`
+          :`<div style="font-size:13px;color:#999;">Awaiting submissions</div>`}
       </div>`;
 
     if(c.composite!==null){
@@ -522,7 +572,7 @@ function renderResults(){
         const rc=c.raterComposites[r.id];
         html+=`<div class="rater-cell">
           <div class="rater-cell-name">${r.name} (${r.initials})</div>
-          ${rc!==null?`<div class="rater-cell-score" style="color:${scoreColor(rc)};">${rc.toFixed(2)}</div>`:`<div style="font-size:12px;color:#555;">pending</div>`}`;
+          ${rc!==null?`<div class="rater-cell-score" style="color:${scoreColor(rc)};">${rc.toFixed(2)}</div>`:`<div style="font-size:12px;color:#bbb;">pending</div>`}`;
         PILLARS.forEach(p=>{
           const sc=getRemoteScore(cname,r.id,p.key);
           if(sc!==null) html+=`<span class="pill-sm" style="color:${scoreColor(sc)};">${p.name[0]}:${sc}</span>`;
@@ -540,7 +590,7 @@ function renderResults(){
   });
 
   if(scored.length===0){
-    html+=`<div style="font-size:14px;color:#666;margin-top:1rem;">No completed submissions yet. Results appear once all 4 raters have submitted for at least one candidate.</div>`;
+    html+=`<div style="font-size:14px;color:#999;margin-top:1rem;">No completed submissions yet. Results appear once all 4 raters have submitted for at least one candidate.</div>`;
   }
   area.innerHTML=html;
 }
