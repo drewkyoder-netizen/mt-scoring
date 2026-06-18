@@ -5,72 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MT Interview Scorecard</title>
 <style>
-/* GSW palette: Royal Blue #1D428A, Gold #FFC72C, White #FFFFFF */
+/* GSW palette: Royal Blue #1D428A, Gold #FFC72C */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#f0f2f5;color:#1a1a2e;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;}
 .app{max-width:900px;margin:0 auto;padding:1.5rem 1rem;}
-
-/* Header — gold bar with blue title */
 .header{margin-bottom:1.5rem;background:linear-gradient(135deg,#1D428A 0%,#1a3a7a 100%);border-radius:14px;padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
 .header::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,199,44,0.12);}
 .header h1{font-size:20px;font-weight:600;color:#FFC72C;letter-spacing:0.01em;}
 .header p{font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;}
-
-/* Nav tabs */
-.nav-main{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap;}
+.nav-main{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;}
 .tab{background:#fff;border:1px solid #dde2ec;border-radius:8px;color:#666;cursor:pointer;font-size:13px;font-weight:500;padding:7px 16px;transition:all 0.15s;}
 .tab.active{background:#1D428A;border-color:#1D428A;color:#FFC72C;}
 .tab:hover:not(.active){border-color:#1D428A;color:#1D428A;}
-
+.tab-reset{color:#c03030;border-color:#f0b0b0;margin-left:auto;}
+.tab-reset:hover:not(.active){border-color:#c03030;color:#c03030;}
+.tab-reset.active{background:#fdf0f0;border-color:#c03030;color:#c03030;}
 .view{display:none;}
 .view.active{display:block;}
-
-/* Section labels */
 .section-label{font-size:11px;font-weight:600;color:#1D428A;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
-
-/* Cards */
 .card{background:#fff;border:1px solid #dde2ec;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-
-/* Rater selector */
 .rater-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .rater-btn{background:#f6f8fb;border:1.5px solid #dde2ec;border-radius:10px;color:#888;cursor:pointer;padding:14px 8px;text-align:center;transition:all 0.15s;}
 .rater-btn:hover{border-color:#1D428A;color:#1D428A;}
 .rater-btn.selected{background:#1D428A;border-color:#1D428A;color:#FFC72C;}
 .rater-btn .initials{font-size:22px;font-weight:600;display:block;margin-bottom:4px;}
 .rater-btn .rname{font-size:12px;}
-
-/* Weight sliders */
 .weights-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .wlabel{font-size:13px;color:#333;flex:1;}
 .wval{font-size:13px;font-weight:600;width:38px;text-align:right;}
 input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
-
-/* Buttons */
 .btn{background:#f6f8fb;border:1px solid #dde2ec;border-radius:8px;color:#333;cursor:pointer;font-size:13px;padding:8px 16px;transition:all 0.15s;}
 .btn:hover{background:#eef1f7;border-color:#1D428A;}
 .btn-primary{background:#1D428A;border-color:#1D428A;color:#FFC72C;font-weight:500;}
 .btn-primary:hover{background:#163570;}
 .btn-success{background:#1a3a1f;border-color:#2a6a30;color:#7fd090;}
 .btn-success:hover{background:#224528;}
-.btn-danger{background:#fdf0f0;border-color:#e0a0a0;color:#c03030;}
-
-/* Candidate sections */
 .candidate-section{background:#fff;border:1px solid #dde2ec;border-radius:12px;margin-bottom:1rem;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .cand-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;cursor:pointer;user-select:none;}
 .cand-header:hover{background:#f6f8fb;}
 .cand-name{font-size:15px;font-weight:600;color:#1D428A;}
 .cand-body{border-top:1px solid #eef1f7;padding:1.25rem;display:none;background:#fafbfd;}
 .cand-body.open{display:block;}
-
-/* Pillar blocks */
 .pillar-block{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid #eef1f7;}
 .pillar-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .pillar-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
 .pillar-name{font-size:14px;font-weight:600;color:#1D428A;}
 .pillar-sub{font-size:12px;color:#888;margin-top:2px;}
 .score-disp{font-size:22px;font-weight:700;color:#bbb;min-width:24px;text-align:right;transition:color 0.15s;}
-
-/* Score buttons — keep number colors, light backgrounds */
 .score-btn-wrap{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
 .score-btn-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
 .sbtn{border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;padding:12px 0;width:100%;text-align:center;transition:all 0.12s;border:1px solid transparent;}
@@ -90,19 +71,13 @@ input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
 .s5-sel{background:#d8f4e8;border-color:#28a060;color:#186840;box-shadow:0 0 0 2px #28a06030;}
 .s6-sel{background:#c8f0d8;border-color:#20c040;color:#106820;box-shadow:0 0 0 2px #20c04030;}
 .s7-sel{background:#d8e8fc;border-color:#2858d0;color:#1a3888;box-shadow:0 0 0 2px #2858d030;}
-
-/* Notes */
 .notes-field{background:#fff;border:1px solid #dde2ec;border-radius:8px;color:#333;font-size:13px;margin-top:10px;outline:none;padding:8px 10px;resize:none;width:100%;}
 .notes-field:focus{border-color:#1D428A;box-shadow:0 0 0 2px rgba(29,66,138,0.1);}
-
-/* Submit bar */
 .submit-bar{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid #eef1f7;}
 .prog-text{font-size:13px;color:#888;}
 .locked-badge{background:#eef6f1;border:1px solid #90d0a8;border-radius:6px;color:#207040;font-size:12px;padding:4px 10px;}
 .warn-box{background:#fffbee;border:1px solid #f0d880;border-radius:8px;color:#806010;font-size:13px;padding:10px 14px;margin-bottom:1rem;}
 .info-box{background:#eef2fc;border:1px solid #b0c4f0;border-radius:8px;color:#1D428A;font-size:13px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
-
-/* Results */
 .results-card{background:#fff;border:1px solid #dde2ec;border-radius:12px;padding:1.25rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .results-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
 .comp-score{font-size:28px;font-weight:700;transition:color 0.2s;}
@@ -123,15 +98,11 @@ input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
 .expand-btn:hover{border-color:#1D428A;color:#1D428A;}
 .detail-body{margin-top:10px;display:none;}
 .detail-body.open{display:block;}
-
-/* Sort bar */
 .sort-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
 .sort-label{font-size:12px;color:#888;margin-right:2px;}
 .sort-btn{background:#fff;border:1px solid #dde2ec;border-radius:7px;color:#666;cursor:pointer;font-size:12px;padding:6px 12px;transition:all 0.12s;white-space:nowrap;}
 .sort-btn:hover{border-color:#1D428A;color:#1D428A;}
 .sort-btn.active{background:#1D428A;border-color:#1D428A;color:#FFC72C;font-weight:500;}
-
-/* Leaderboard */
 .lb-row{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #dde2ec;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
 .lb-rank{font-size:20px;font-weight:700;color:#bbb;width:28px;flex-shrink:0;}
 .lb-rank.r1{color:#FFC72C;}
@@ -147,6 +118,7 @@ input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
 .chip.pending{background:#f6f6f6;border:1px solid #ddd;color:#999;}
 .divider{height:1px;background:#eef1f7;margin:1.5rem 0;}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid #dde2ec;border-top-color:#1D428A;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
+.confirm-msg{background:#eef6f1;border:1px solid #90d0a8;border-radius:8px;color:#207040;font-size:13px;padding:10px 14px;margin-bottom:1rem;font-weight:500;display:none;}
 @keyframes spin{to{transform:rotate(360deg);}}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 @media(max-width:560px){.rater-grid{grid-template-columns:repeat(2,1fr);}input[type=range]{flex:0 0 100px;}.rater-grid-r{grid-template-columns:repeat(2,1fr);}}
@@ -163,8 +135,10 @@ input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
     <div class="tab active" onclick="switchView('setup')">Setup</div>
     <div class="tab" onclick="switchView('score')">Score</div>
     <div class="tab" onclick="switchView('results')">Results</div>
+    <div class="tab tab-reset" onclick="switchView('reset')">↺ Reset</div>
   </div>
 
+  <!-- SETUP -->
   <div class="view active" id="view-setup">
     <p class="section-label">Who are you?</p>
     <div class="card">
@@ -177,13 +151,36 @@ input[type=range]{flex:0 0 150px;accent-color:#1D428A;}
     <button class="btn btn-primary" onclick="goScore()" style="width:100%;">Continue to scoring ›</button>
   </div>
 
+  <!-- SCORE -->
   <div class="view" id="view-score">
     <div id="raterBanner" style="margin-bottom:1rem;"></div>
     <div id="scoreSections"></div>
   </div>
 
+  <!-- RESULTS -->
   <div class="view" id="view-results">
     <div id="resultsArea"></div>
+  </div>
+
+  <!-- RESET -->
+  <div class="view" id="view-reset">
+    <div class="confirm-msg" id="resetConfirmMsg"></div>
+    <div class="card" style="border-color:#f0b0b0;">
+      <div style="font-size:16px;font-weight:600;color:#1D428A;margin-bottom:6px;">Reset local data</div>
+      <div style="font-size:13px;color:#666;margin-bottom:1.25rem;">This clears scores stored <strong>on this device only</strong> — it does not affect the Google Sheet. Use this if the app shows scores as submitted when they weren't actually saved.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fffbee;border:1px solid #f0d880;border-radius:10px;padding:1rem;">
+          <div style="font-size:13px;font-weight:600;color:#806010;margin-bottom:4px;">Clear one rater's scores</div>
+          <div style="font-size:12px;color:#888;margin-bottom:10px;">Removes all locally stored scores and submission flags for that person only. Their name selection is also cleared.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="resetRaterBtns"></div>
+        </div>
+        <div style="background:#fdf0f0;border:1px solid #f0b0b0;border-radius:10px;padding:1rem;">
+          <div style="font-size:13px;font-weight:600;color:#903030;margin-bottom:4px;">Clear everything on this device</div>
+          <div style="font-size:12px;color:#888;margin-bottom:10px;">Wipes all scores, weights, and the selected rater name. Use for a completely clean slate.</div>
+          <button class="btn" onclick="resetAll()" style="background:#fdf0f0;border-color:#c03030;color:#c03030;font-weight:500;">Clear all local data</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -204,8 +201,8 @@ const PILLARS = [
   {key:'logistics',        name:'Logistical / schedule fit',         sub:'Anticipated schedule handling · adaptability · flexibility'},
   {key:'professionalism',  name:'Professionalism / self-awareness',  sub:'Discretion & confidentiality · scope of practice · personal conduct'},
 ];
-const BTN_BASE = ['','s1-base','s2-base','s3-base','s4-base','s5-base','s6-base','s7-base'];
-const BTN_SEL  = ['','s1-sel', 's2-sel', 's3-sel', 's4-sel', 's5-sel', 's6-sel', 's7-sel'];
+const BTN_BASE   = ['','s1-base','s2-base','s3-base','s4-base','s5-base','s6-base','s7-base'];
+const BTN_SEL    = ['','s1-sel', 's2-sel', 's3-sel', 's4-sel', 's5-sel', 's6-sel', 's7-sel'];
 const BTN_LABELS = ['','Bad','','','Average','','','Elite'];
 
 let state = {
@@ -214,25 +211,26 @@ let state = {
   scores: {},
   open: {},
 };
-
 let remoteScores = [];
-let syncState = 'idle';
 let sortKey = 'composite';
 let openCards = {};
 
 function save(){ try{ localStorage.setItem('mtsc_gh', JSON.stringify(state)); }catch(e){} }
 function loadLocal(){ try{ const d=localStorage.getItem('mtsc_gh'); if(d) state=JSON.parse(d); }catch(e){} }
 loadLocal();
-
 function sk(c,r){ return c+'||'+r; }
 
+/* ── NAV ── */
 function switchView(v){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('#mainNav .tab').forEach(el=>el.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');
-  ['setup','score','results'].forEach((n,i)=>{ if(n===v) document.querySelectorAll('#mainNav .tab')[i].classList.add('active'); });
-  if(v==='results'){ fetchAndRenderResults(); }
-  if(v==='score'){ renderScorePage(); }
+  ['setup','score','results','reset'].forEach((n,i)=>{
+    if(n===v) document.querySelectorAll('#mainNav .tab')[i].classList.add('active');
+  });
+  if(v==='results') fetchAndRenderResults();
+  if(v==='score')   renderScorePage();
+  if(v==='reset')   renderResetView();
 }
 
 /* ── SETUP ── */
@@ -253,7 +251,7 @@ function renderWeights(){
       <input type="range" min="5" max="50" step="5" value="${state.weights[p.key]}" oninput="updateW('${p.key}',this.value)"/>
       <span class="wval" id="wv-${p.key}">${state.weights[p.key]}%</span>
     </div>`).join('')
-    +`<div style="font-size:13px;color:#666;margin-top:8px;">Total: <span id="wtot" style="font-weight:500;">${weightTotal()}%</span></div>`;
+    +`<div style="font-size:13px;color:#666;margin-top:8px;">Total: <span id="wtot" style="font-weight:600;">${weightTotal()}%</span></div>`;
   styleWTotal();
 }
 function updateW(key,val){
@@ -264,8 +262,8 @@ function updateW(key,val){
 function styleWTotal(){
   const t=weightTotal();
   const el=document.getElementById('wtot');
-  if(el){ el.textContent=t+'%'; el.style.color=t===100?'#60c080':'#f08080'; }
-  document.querySelectorAll('.wval').forEach(el=>{ el.style.color=t===100?'#60c080':'#f08080'; });
+  if(el){ el.textContent=t+'%'; el.style.color=t===100?'#207040':'#c03030'; }
+  document.querySelectorAll('.wval').forEach(el=>{ el.style.color=t===100?'#207040':'#c03030'; });
 }
 function goScore(){
   if(!state.activeRater){ alert('Please select your name first.'); return; }
@@ -279,27 +277,27 @@ function renderScorePage(){
   const banner = document.getElementById('raterBanner');
   if(!rater){
     banner.innerHTML=`<div class="warn-box">Go to Setup and select your name first.</div>`;
-    document.getElementById('scoreSections').innerHTML='';
-    return;
+    document.getElementById('scoreSections').innerHTML=''; return;
   }
   banner.innerHTML=`<div style="display:flex;align-items:center;gap:10px;">
     <div style="width:36px;height:36px;border-radius:50%;background:#1D428A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#FFC72C;">${rater.initials}</div>
-    <div><div style="font-size:15px;font-weight:600;color:#1D428A;">Scoring as ${rater.name}</div><div style="font-size:12px;color:#888;">Rate all 6 candidates, then submit each one</div></div>
+    <div><div style="font-size:15px;font-weight:600;color:#1D428A;">Scoring as ${rater.name}</div>
+    <div style="font-size:12px;color:#888;">Rate all 6 candidates, then submit each one</div></div>
     <button class="btn" onclick="switchView('setup')" style="margin-left:auto;font-size:12px;padding:6px 12px;">Change</button>
   </div>`;
   document.getElementById('scoreSections').innerHTML = CANDIDATES.map(c=>buildCandSection(c,rater.id)).join('');
 }
 
 function buildCandSection(candidate, raterId){
-  const key = sk(candidate,raterId);
-  const existing = state.scores[key]||{};
-  const submitted = existing.submitted;
-  const scored = PILLARS.filter(p=>(existing[p.key]||{}).score).length;
-  const cid = candidate.replace(/ /g,'_');
-  const isOpen = state.open[candidate];
-  const statusText = submitted
-    ? `<span style="color:#60c080;font-size:12px;">✓ Submitted</span>`
-    : `<span style="color:#666;font-size:12px;">${scored} / ${PILLARS.length} scored</span>`;
+  const key=sk(candidate,raterId);
+  const existing=state.scores[key]||{};
+  const submitted=existing.submitted;
+  const scored=PILLARS.filter(p=>(existing[p.key]||{}).score).length;
+  const cid=candidate.replace(/ /g,'_');
+  const isOpen=state.open[candidate];
+  const statusText=submitted
+    ?`<span style="color:#207040;font-size:12px;">✓ Submitted</span>`
+    :`<span style="color:#888;font-size:12px;">${scored} / ${PILLARS.length} scored</span>`;
 
   let body='';
   if(submitted){
@@ -312,31 +310,29 @@ function buildCandSection(candidate, raterId){
         const isSel=sc===n;
         const lbl=BTN_LABELS[n]?`<div class="sbtn-label">${BTN_LABELS[n]}</div>`:`<div class="sbtn-label"></div>`;
         return `<div class="score-btn-col">
-          <button class="sbtn ${isSel?BTN_SEL[n]:BTN_BASE[n]}" onclick="setScore('${candidate}','${raterId}','${p.key}',${n})" id="sb-${cid}-${p.key}-${n}">${n}</button>
-          ${lbl}
+          <button class="sbtn ${isSel?BTN_SEL[n]:BTN_BASE[n]}" onclick="setScore('${candidate}','${raterId}','${p.key}',${n})" id="sb-${cid}-${p.key}-${n}">${n}</button>${lbl}
         </div>`;
       }).join('');
       return `<div class="pillar-block">
         <div class="pillar-header">
           <div><div class="pillar-name">${p.name}</div><div class="pillar-sub">${p.sub}</div></div>
-          <div class="score-disp" id="sd-${cid}-${p.key}" style="color:${sc?scoreColor(sc):'#555'};">${sc||'—'}</div>
+          <div class="score-disp" id="sd-${cid}-${p.key}" style="color:${sc?scoreColor(sc):'#bbb'};">${sc||'—'}</div>
         </div>
         <div class="score-btn-wrap">${btns}</div>
         <textarea class="notes-field" rows="2" placeholder="Notes..." id="nt-${cid}-${p.key}" onblur="saveNote('${candidate}','${raterId}','${p.key}',this.value)">${notes}</textarea>
       </div>`;
     }).join('');
-    const allDone = PILLARS.every(p=>(existing[p.key]||{}).score);
+    const allDone=PILLARS.every(p=>(existing[p.key]||{}).score);
     body+=`<div class="submit-bar">
       <span class="prog-text" id="prog-${cid}">${scored} / ${PILLARS.length} pillars scored</span>
       <button class="btn btn-success" onclick="submitScores('${candidate}','${raterId}')" ${allDone?'':'disabled'} id="subBtn-${cid}">Submit & save ›</button>
     </div>`;
   }
-
   return `<div class="candidate-section" id="csec-${cid}">
     <div class="cand-header" onclick="toggleCand('${candidate}')">
       <div class="cand-name">${candidate}</div>
       <div style="display:flex;align-items:center;gap:10px;">${statusText}
-        <span style="color:#555;font-size:18px;transition:transform 0.2s;display:inline-block;transform:${isOpen?'rotate(180deg)':'rotate(0deg)'}" id="chev-${cid}">⌄</span>
+        <span style="color:#bbb;font-size:18px;transition:transform 0.2s;display:inline-block;transform:${isOpen?'rotate(180deg)':'rotate(0deg)'}" id="chev-${cid}">⌄</span>
       </div>
     </div>
     <div class="cand-body${isOpen?' open':''}" id="cbody-${cid}">${body}</div>
@@ -378,30 +374,22 @@ function saveNote(candidate,raterId,pillar,val){
   state.scores[key][pillar].notes=val; save();
 }
 
-async function submitScores(candidate, raterId){
+async function submitScores(candidate,raterId){
   const key=sk(candidate,raterId);
   const cid=candidate.replace(/ /g,'_');
   PILLARS.forEach(p=>{
     const el=document.getElementById('nt-'+cid+'-'+p.key);
     if(el && state.scores[key]?.[p.key]) state.scores[key][p.key].notes=el.value;
   });
-
   const btn=document.getElementById('subBtn-'+cid);
   if(btn){ btn.disabled=true; btn.textContent='Saving...'; }
-
   const rows=PILLARS.map(p=>({
-    rater: raterId,
-    candidate: candidate,
-    pillar: p.key,
-    score: state.scores[key]?.[p.key]?.score||0,
-    notes: state.scores[key]?.[p.key]?.notes||''
+    rater:raterId, candidate, pillar:p.key,
+    score:state.scores[key]?.[p.key]?.score||0,
+    notes:state.scores[key]?.[p.key]?.notes||''
   }));
-
   try{
-    await fetch(SHEETS_URL, {
-      method:'POST',
-      body: JSON.stringify({scores:rows}),
-    });
+    await fetch(SHEETS_URL,{ method:'POST', body:JSON.stringify({scores:rows}) });
     state.scores[key].submitted=true; save();
     const sec=document.getElementById('csec-'+cid);
     if(sec) sec.outerHTML=buildCandSection(candidate,raterId);
@@ -411,17 +399,53 @@ async function submitScores(candidate, raterId){
   }
 }
 
+/* ── RESET ── */
+function renderResetView(){
+  const el=document.getElementById('resetRaterBtns');
+  if(!el) return;
+  el.innerHTML=RATERS.map(r=>`
+    <button class="btn" onclick="resetRater('${r.id}','${r.name}')"
+      style="background:#fffbee;border-color:#d0a820;color:#806010;font-weight:500;">
+      ${r.name} (${r.initials})
+    </button>`).join('');
+}
+
+function resetRater(raterId, raterName){
+  if(!confirm(`Clear all locally stored scores for ${raterName} on this device?\n\nThis does not affect the Google Sheet.`)) return;
+  CANDIDATES.forEach(c=>{ delete state.scores[sk(c,raterId)]; });
+  state.open={};
+  if(state.activeRater===raterId) state.activeRater=null;
+  save();
+  showResetConfirm(`✓ ${raterName}'s scores cleared from this device.`);
+  renderRaterGrid();
+}
+
+function resetAll(){
+  if(!confirm('Clear ALL scores, weights, and settings from this device?\n\nThis cannot be undone. The Google Sheet is not affected.')) return;
+  state={ activeRater:null, weights:{clinical:20,team:20,character:20,logistics:20,professionalism:20}, scores:{}, open:{} };
+  try{ localStorage.removeItem('mtsc_gh'); }catch(e){}
+  showResetConfirm('✓ All local data cleared.');
+  renderRaterGrid();
+  renderWeights();
+}
+
+function showResetConfirm(msg){
+  const el=document.getElementById('resetConfirmMsg');
+  if(el){ el.textContent=msg; el.style.display='block'; setTimeout(()=>el.style.display='none',3500); }
+}
+
 /* ── RESULTS ── */
 async function fetchAndRenderResults(){
   const area=document.getElementById('resultsArea');
-  area.innerHTML=`<div class="info-box"><span class="spinner"></span> Loading scores from Google Sheets...</div>`;
+  area.innerHTML=`<div class="info-box"><span class="spinner"></span>Loading scores from Google Sheets...</div>`;
   try{
     const res=await fetch(SHEETS_URL+'?t='+Date.now());
     const data=await res.json();
     remoteScores=data.scores||[];
     renderResults();
   } catch(err){
-    area.innerHTML=`<div class="warn-box">⚠ Could not load scores. Check your connection and try again.<br><br><button class="btn" onclick="fetchAndRenderResults()" style="margin-top:8px;">Retry</button></div>`;
+    area.innerHTML=`<div class="warn-box">⚠ Could not load scores. Check your connection.<br><br>
+      <button class="btn" onclick="fetchAndRenderResults()" style="margin-top:8px;">Retry</button></div>`;
   }
 }
 
@@ -444,40 +468,37 @@ function computeRemoteComposite(candidate){
   const raterComposites={};
   RATERS.forEach(r=>{
     if(!raterSubmittedAll(candidate,r.id)){ raterComposites[r.id]=null; return; }
-    const t2=PILLARS.reduce((s,p)=>s+state.weights[p.key],0);
     raterComposites[r.id]=PILLARS.reduce((s,p)=>{
       const sc=getRemoteScore(candidate,r.id,p.key)||0;
-      return s+sc*(state.weights[p.key]/t2);
+      return s+sc*(state.weights[p.key]/t);
     },0);
   });
   return{pillarAvgs,composite,raterComposites};
 }
 
 function scoreColor(s){
-  // Continuous gradient: 1=red, 2=orange, 3=yellow, 4=grey, 5=light green, 6=green, 7=blue
-  if(s<=1)  return'#e06060';
-  if(s<=2)  return'#d07040';
-  if(s<=3)  return'#b8a840';
-  if(s<=4)  return'#888888';
-  if(s<=5)  return'#7dd4a0';
-  if(s<=6)  return'#4ec870';
-  return'#6098e8';
+  if(s<=1) return'#c83030';
+  if(s<=2) return'#c06020';
+  if(s<=3) return'#907010';
+  if(s<=4) return'#888';
+  if(s<=5) return'#208050';
+  if(s<=6) return'#186828';
+  return'#1a3a88';
 }
 function scoreColorContinuous(val){
-  // Interpolated for composite decimals
   const stops=[
-    {v:1, r:224,g:96, b:96 },
-    {v:2, r:208,g:112,b:64 },
-    {v:3, r:184,g:168,b:64 },
-    {v:4, r:136,g:136,b:136},
-    {v:5, r:125,g:212,b:160},
-    {v:6, r:78, g:200,b:112},
-    {v:7, r:96, g:152,b:232},
+    {v:1,r:200,g:48, b:48 },
+    {v:2,r:192,g:96, b:32 },
+    {v:3,r:144,g:112,b:16 },
+    {v:4,r:136,g:136,b:136},
+    {v:5,r:32, g:128,b:80 },
+    {v:6,r:24, g:104,b:40 },
+    {v:7,r:26, g:58, b:136},
   ];
   const clamped=Math.max(1,Math.min(7,val));
   let lo=stops[0],hi=stops[stops.length-1];
   for(let i=0;i<stops.length-1;i++){
-    if(clamped>=stops[i].v && clamped<=stops[i+1].v){ lo=stops[i]; hi=stops[i+1]; break; }
+    if(clamped>=stops[i].v&&clamped<=stops[i+1].v){ lo=stops[i]; hi=stops[i+1]; break; }
   }
   const t=(clamped-lo.v)/(hi.v-lo.v);
   const r=Math.round(lo.r+(hi.r-lo.r)*t);
@@ -487,9 +508,7 @@ function scoreColorContinuous(val){
 }
 function barColor(avg){ return scoreColorContinuous(avg); }
 
-function getSortVal(c){
-  return sortKey==='composite'?c.composite:c.pillarAvgs[sortKey];
-}
+function getSortVal(c){ return sortKey==='composite'?c.composite:c.pillarAvgs[sortKey]; }
 function setSort(key){
   sortKey=key;
   document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
@@ -504,15 +523,12 @@ function renderResults(){
   const scored=all.filter(c=>c.composite!==null);
   const sorted=[...scored].sort((a,b)=>(getSortVal(b)||0)-(getSortVal(a)||0));
 
-  const totalRatersSubmitted=RATERS.filter(r=>CANDIDATES.some(c=>raterSubmittedAll(c,r.id))).length;
-
   let html=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-    <div style="font-size:13px;color:#999;">${remoteScores.length} score entries loaded from Google Sheets</div>
+    <div style="font-size:13px;color:#999;">${remoteScores.length} entries loaded from Google Sheets</div>
     <button class="btn" onclick="fetchAndRenderResults()" style="font-size:12px;padding:5px 12px;">↻ Refresh</button>
   </div>`;
 
-  html+=`<div class="sort-bar">
-    <span class="sort-label">Sort by</span>
+  html+=`<div class="sort-bar"><span class="sort-label">Sort by</span>
     <button class="sort-btn${sortKey==='composite'?' active':''}" id="rsb-composite" onclick="setSort('composite')">Composite</button>
     ${PILLARS.map(p=>`<button class="sort-btn${sortKey===p.key?' active':''}" id="rsb-${p.key}" onclick="setSort('${p.key}')">${p.name.split(' ')[0]}</button>`).join('')}
   </div>`;
@@ -526,32 +542,33 @@ function renderResults(){
       html+=`<div class="lb-row">
         <div class="lb-rank ${rc}">${i+1}</div>
         <div style="flex:1;"><div class="lb-name">${c.name}</div><div class="lb-pills">${pills}</div></div>
-        <div style="text-align:right;"><div class="lb-score" style="color:${scoreColorContinuous(val)};">${val.toFixed(2)}</div><div style="font-size:11px;color:#999;">${sortKey==='composite'?'composite':PILLARS.find(p=>p.key===sortKey)?.name.split(' ')[0]}</div></div>
+        <div style="text-align:right;">
+          <div class="lb-score" style="color:${scoreColorContinuous(val)};">${val.toFixed(2)}</div>
+          <div style="font-size:11px;color:#999;">${sortKey==='composite'?'composite':PILLARS.find(p=>p.key===sortKey)?.name.split(' ')[0]}</div>
+        </div>
       </div>`;
     });
     html+=`<div class="divider"></div>`;
   }
 
   html+=`<p class="section-label">Candidate breakdowns</p>`;
-  const displayOrder = sorted.length>0 ? sorted.map(c=>c.name) : CANDIDATES;
-  const allData = Object.fromEntries(all.map(c=>[c.name,c]));
+  const displayOrder=sorted.length>0?sorted.map(c=>c.name):CANDIDATES;
+  const allData=Object.fromEntries(all.map(c=>[c.name,c]));
 
   displayOrder.forEach(cname=>{
-    const c=allData[cname];
-    if(!c) return;
+    const c=allData[cname]; if(!c) return;
     const doneRaters=RATERS.filter(r=>raterSubmittedAll(cname,r.id));
     const pendingRaters=RATERS.filter(r=>!raterSubmittedAll(cname,r.id));
     html+=`<div class="results-card">
       <div class="results-top">
         <div>
           <div style="font-size:17px;font-weight:600;color:#1D428A;">${cname}</div>
-          <div style="font-size:12px;color:#888;margin-top:4px;">${doneRaters.length} / 4 raters submitted</div>
+          <div style="font-size:12px;color:#999;margin-top:4px;">${doneRaters.length} / 4 raters submitted</div>
         </div>
         ${c.composite!==null
           ?`<div><div class="comp-score" style="color:${scoreColorContinuous(c.composite)};">${c.composite.toFixed(2)}</div><div style="font-size:11px;color:#999;text-align:right;">weighted composite</div></div>`
           :`<div style="font-size:13px;color:#999;">Awaiting submissions</div>`}
       </div>`;
-
     if(c.composite!==null){
       PILLARS.forEach(p=>{
         const avg=c.pillarAvgs[p.key];
@@ -560,7 +577,7 @@ function renderResults(){
         html+=`<div class="bar-row${isSorted?' sorted-pillar':''}">
           <div class="bar-label">${p.name}</div>
           <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${barColor(avg)};"></div></div>
-          <div class="bar-val" style="color:${isSorted?'#9fc8f0':barColor(avg)};">${avg!==null?avg.toFixed(1):'—'}</div>
+          <div class="bar-val" style="color:${isSorted?'#1D428A':barColor(avg)};">${avg!==null?avg.toFixed(1):'—'}</div>
         </div>`;
       });
       html+=`<button class="expand-btn" id="dbtn-${cname.replace(/ /g,'_')}" onclick="toggleDetail('${cname}')">Show rater detail</button>
@@ -572,7 +589,7 @@ function renderResults(){
         const rc=c.raterComposites[r.id];
         html+=`<div class="rater-cell">
           <div class="rater-cell-name">${r.name} (${r.initials})</div>
-          ${rc!==null?`<div class="rater-cell-score" style="color:${scoreColor(rc)};">${rc.toFixed(2)}</div>`:`<div style="font-size:12px;color:#bbb;">pending</div>`}`;
+          ${rc!==null?`<div class="rater-cell-score" style="color:${scoreColorContinuous(rc)};">${rc.toFixed(2)}</div>`:`<div style="font-size:12px;color:#bbb;">pending</div>`}`;
         PILLARS.forEach(p=>{
           const sc=getRemoteScore(cname,r.id,p.key);
           if(sc!==null) html+=`<span class="pill-sm" style="color:${scoreColor(sc)};">${p.name[0]}:${sc}</span>`;
